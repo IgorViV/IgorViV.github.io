@@ -929,7 +929,7 @@ a {
   margin: 0 auto;
   padding: 0;
   margin-bottom: 32px;
-  padding: 14px 0;
+  padding: 15px 0;
   font-weight: 700;
   font-size: 18px;
   line-height: 18px;
@@ -965,7 +965,7 @@ a {
   height: 56px;
   margin: 0 auto;
   padding: 0;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 .download__link {
   width: 46px;
@@ -1011,22 +1011,23 @@ a {
   .download h3 {
     display: block;
     width: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
   }
   .download__btn {
     width: 300px;
     margin-bottom: 45px;
+    padding: 12px 0;
     line-height: 24px;
   }
   .download__links {
-    margin-bottom: 35px;
+    margin-bottom: 38px;
   }
 }
 @media (min-width: 1200px) {
   .download {
     position: absolute;
     left: 110px;
-    top: -632px;
+    top: -635px;
     width: 340px;
     padding-top: 0;
     padding-bottom: 0;
@@ -1036,12 +1037,13 @@ a {
   }
   .download h3 {
     width: 240px;
-    margin-bottom: 50px;
+    margin-bottom: 53px;
     font-size: 50px;
     line-height: 60px;
   }
   .download__btn {
     margin-bottom: 65px;
+    padding: 13px 0;
     font-size: 21px;
     line-height: 21px;
   }
@@ -1097,6 +1099,7 @@ a {
   padding: 0;
   margin-bottom: 13px;
   font-weight: 700;
+  font-size: 18px;
   color: #000000;
 }
 .features__item h3 br {
@@ -1110,6 +1113,9 @@ a {
   display: none;
 }
 .features__footer {
+  display: none;
+}
+.transfer--desktop {
   display: none;
 }
 @media (min-width: 660px) {
@@ -1184,8 +1190,9 @@ a {
     margin-bottom: 10px;
   }
   .features__footer a {
-    text-decoration: underline;
+    text-decoration: none;
     color: #d22856;
+    border-bottom: 1px solid #d22856;
   }
   .features__footer a:hover {
     color: #283645;
@@ -1197,7 +1204,7 @@ a {
 @media (min-width: 1200px) {
   .features__header {
     padding-top: 68px;
-    padding-bottom: 78px;
+    padding-bottom: 75px;
   }
   .features__text {
     width: 750px;
@@ -1226,7 +1233,7 @@ a {
   .features__item {
     width: 310px;
     margin-bottom: 0;
-    padding-top: 355px;
+    padding-top: 357px;
     text-align: center;
     background-image: url(../img/iphone-screen-2-desktop@1x.png);
     background-position: center top;
@@ -1263,8 +1270,8 @@ a {
     width: 960px;
     margin: 0 auto;
     padding: 0;
-    padding-top: 155px;
-    padding-left: 378px;
+    padding-top: 157px;
+    padding-left: 376px;
     padding-right: 10px;
     padding-bottom: 115px;
     background-color: transparent;
@@ -1275,7 +1282,7 @@ a {
   }
   .features__footer h3 {
     width: 300px;
-    margin-bottom: 23px;
+    margin-bottom: 21px;
   }
   .features__footer h3 br {
     display: none;
@@ -1289,6 +1296,9 @@ a {
   .features__footer p br {
     display: none;
   }
+  .features__footer p .transfer--desktop {
+    display: initial;
+  }
   .features__footer a {
     font-size: 18px;
     line-height: 30px;
@@ -1297,7 +1307,7 @@ a {
 .comments {
   margin: 0 auto;
   padding: 0;
-  padding-bottom: 30px;
+  padding-bottom: 35px;
   background-color: #ffffff;
   overflow: hidden;
 }
@@ -1310,20 +1320,20 @@ a {
 .comments__slide {
   width: 320px;
   padding-top: 43px;
-  padding-bottom: 40px;
+  padding-bottom: 28px;
   text-transform: none;
   text-align: center;
 }
 .comments__slide blockquote {
   margin: 0;
   padding: 0 20px;
-  line-height: 28px;
+  line-height: 30px;
   color: #283645;
 }
 .comments__slide-header h3 {
   margin: 0 auto;
   padding: 0;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 700;
   font-size: 18px;
   line-height: 30px;
@@ -1536,7 +1546,7 @@ a {
 }
 .proposals__table {
   width: 840px;
-  margin-bottom: 38px;
+  margin-bottom: 35px;
   color: #283645;
   background-color: #ffffff;
   border-collapse: collapse;
@@ -1713,7 +1723,7 @@ a {
 }
 @media (min-width: 1200px) {
   .proposals {
-    padding-top: 145px;
+    padding-top: 147px;
     padding-bottom: 55px;
   }
   .proposals__table {
@@ -1758,10 +1768,11 @@ a {
   }
 }
 .contacts {
-  padding-top: 40px;
+  padding-top: 43px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 35px;
+  padding-bottom: 37px;
+  font-weight: 300;
   color: #283645;
   background-color: #ffffff;
 }
@@ -1769,15 +1780,14 @@ a {
   width: 230px;
   margin: 0 auto;
   padding: 0;
-  margin-bottom: 33px;
-  font-weight: 300;
+  margin-bottom: 35px;
   font-size: 24px;
-  line-height: 30px;
+  line-height: 28px;
   text-align: center;
   text-transform: none;
 }
 .contacts__item {
-  margin-bottom: 20px;
+  margin-bottom: 21px;
   text-align: center;
   text-transform: none;
 }
@@ -1792,7 +1802,7 @@ a {
   margin: 0 auto;
   padding: 0;
   font-size: 24px;
-  line-height: 30px;
+  line-height: 28px;
   color: #d22856;
 }
 .contacts__item a {
@@ -1800,7 +1810,7 @@ a {
   margin: 0 auto;
   padding: 0;
   font-size: 24px;
-  line-height: 30px;
+  line-height: 28px;
   color: #d22856;
 }
 .contacts__item a:hover {
@@ -1811,6 +1821,9 @@ a {
 }
 .contacts__item--mail {
   margin-bottom: 25px;
+}
+.contacts__item--mail h3 {
+  margin-bottom: 4px;
 }
 .contacts__item--address {
   margin-bottom: 0;
@@ -1828,7 +1841,7 @@ a {
     padding-top: 43px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 25px;
+    padding-bottom: 28px;
   }
   .contacts__header {
     width: 620px;
@@ -1850,11 +1863,17 @@ a {
     line-height: 24px;
   }
   .contacts__item h3 {
+    margin-bottom: 5px;
+  }
+  .contacts__item--mail h3 {
     margin-bottom: 7px;
   }
   .contacts__item--address {
     width: 620px;
     padding-top: 45px;
+  }
+  .contacts__item--address h3 {
+    margin-bottom: 7px;
   }
 }
 @media (min-width: 1200px) {
@@ -1862,7 +1881,7 @@ a {
     padding-top: 65px;
     padding-left: 130px;
     padding-right: 130px;
-    padding-bottom: 20px;
+    padding-bottom: 22px;
   }
   .contacts__header {
     width: 940px;
@@ -2067,7 +2086,6 @@ a {
 .photo__author {
   margin: 0;
   padding: 0;
-  margin-bottom: 20;
   font-weight: 700;
 }
 .photo__author span {
@@ -3513,16 +3531,23 @@ a {
     margin-right: 0;
   }
   .page-footer__copyright-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     text-align: right;
   }
   .page-footer__copyright-link span {
-    display: inline-block;
+    margin-left: auto;
+    margin-right: 5px;
     font-size: 14px;
   }
   .page-footer__copyright-img {
-    display: inline-block;
-    margin-right: -7px;
-    width: 42px;
+    margin-top: 3px;
+    margin-right: 0;
+    width: 27px;
   }
 }
 @media (min-width: 1200px) {
@@ -3541,6 +3566,10 @@ a {
   }
   .page-footer__logo-link[href]:hover .page-footer__logo-img--desktop {
     fill: #d22856;
+  }
+  .page-footer__logo-link[href]:active .page-footer__logo-img--desktop {
+    fill: #283645;
+    opacity: 0.3;
   }
   .page-footer__copyright-link span {
     font-size: 18px;
