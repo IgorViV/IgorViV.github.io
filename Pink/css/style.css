@@ -3657,11 +3657,49 @@ a {
 }
 @media (min-width: 660px) {
   .modal__content {
-    width: 660px;
+    width: 460px;
+  }
+  .modal__content h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .modal__content p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .modal__button {
+    border-radius: 4px;
+  }
+  .modal__content--failure h2 {
+    width: 220px;
+  }
+  .modal__content--failure p {
+    width: 300px;
+  }
+  .modal__button--failure {
+    width: 300px;
+  }
+  .modal__content--success {
+    width: 460px;
+  }
+  .modal__content--success p {
+    width: 310px;
+  }
+  .modal__content--success p br {
+    display: none;
   }
 }
 @media (min-width: 1200px) {
-  .modal__content {
-    width: 1200px;
+  .modal__content--success {
+    width: 780px;
+  }
+  .modal__content--success h2 {
+    width: 400px;
+  }
+  .modal__content--success p {
+    width: 380px;
+  }
+  .modal__button--success {
+    width: 460px;
   }
 }
