@@ -16,14 +16,14 @@
   var btnModalAcceptedClose = pageModalOverlay.querySelector('.modal__btn-close--accepted');
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
-  var isStorageSupport = true;
-  var storage = '';
+  // var isStorageSupport = true;
+  // var storage = '';
 
-  try {
-    storage = localStorage.getItem('name');
-  } catch (err) {
-    isStorageSupport = false;
-  }
+  // try {
+  //   storage = localStorage.getItem('name');
+  // } catch (err) {
+  //   isStorageSupport = false;
+  // }
 
   if (formWantToGo) {
     if (formWantToGo.elements.phone) {
@@ -139,42 +139,42 @@
     }
   }
 
-  function setValueLocalStorage(currentForm) {
-    if (isStorageSupport) {
-      if (currentForm.elements.name) {
-        localStorage.setItem('name', currentForm.elements.name.value);
-      }
-      if (currentForm.elements.phone) {
-        localStorage.setItem('phone', currentForm.elements.phone.value);
-      }
-    }
-  }
+  // function setValueLocalStorage(currentForm) {
+  //   if (isStorageSupport) {
+  //     if (currentForm.elements.name) {
+  //       localStorage.setItem('name', currentForm.elements.name.value);
+  //     }
+  //     if (currentForm.elements.phone) {
+  //       localStorage.setItem('phone', currentForm.elements.phone.value);
+  //     }
+  //   }
+  // }
 
-  function getValueLocalStorage(currentForm) {
-    if (storage) {
-      if (currentForm.elements.name) {
-        currentForm.elements.name.value = storage;
-        if (!currentForm.elements.phone.validity.valid) {
-          currentForm.elements.phone.style.borderColor = '#ff0000';
-        } else {
-          currentForm.elements.phone.style.borderColor = '#9A9A9A';
-        }
-      }
-      if (currentForm.elements.phone) {
-        currentForm.elements.phone.focus();
-        currentForm.elements.phone.value = localStorage.getItem('phone');
-        if (!currentForm.elements.phone.validity.valid) {
-          currentForm.elements.phone.style.borderColor = '#ff0000';
-        } else {
-          currentForm.elements.phone.style.borderColor = '#9A9A9A';
-        }
-      }
-    } else {
-      if (currentForm.elements.name) {
-        currentForm.elements.name.focus();
-      }
-    }
-  }
+  // function getValueLocalStorage(currentForm) {
+  //   if (storage) {
+  //     if (currentForm.elements.name) {
+  //       currentForm.elements.name.value = storage;
+  //       if (!currentForm.elements.phone.validity.valid) {
+  //         currentForm.elements.phone.style.borderColor = '#ff0000';
+  //       } else {
+  //         currentForm.elements.phone.style.borderColor = '#9A9A9A';
+  //       }
+  //     }
+  //     if (currentForm.elements.phone) {
+  //       currentForm.elements.phone.focus();
+  //       currentForm.elements.phone.value = localStorage.getItem('phone');
+  //       if (!currentForm.elements.phone.validity.valid) {
+  //         currentForm.elements.phone.style.borderColor = '#ff0000';
+  //       } else {
+  //         currentForm.elements.phone.style.borderColor = '#9A9A9A';
+  //       }
+  //     }
+  //   } else {
+  //     if (currentForm.elements.name) {
+  //       currentForm.elements.name.focus();
+  //     }
+  //   }
+  // }
 
   function onModalCallOpen() {
     if (pageModalOverlay.classList.contains('modal-overlay--hidden')) {
@@ -241,59 +241,84 @@
   var currentSlideOffset = 0;
   var MOBILE_BREAKPOINT = 767;
 
+
+  lifeSlider.addEventListener('touchstart', function (evt) {
+    clickPosition.xStart = getMouseXPosition(evt);
+
+    document.addEventListener('touchmove', onMouseMove);
+    document.addEventListener('touchend', onMouseUp);
+  });
+
   lifeSlider.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-    clickPosition.xStart = evt.clientX;
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-      clickPosition.xEnd = moveEvt.clientX;
-      clickPosition.xShift = clickPosition.xEnd - clickPosition.xStart;
-
-      if (document.documentElement.clientWidth <= MOBILE_BREAKPOINT) {
-        var transValue = 'transform: translateX(' + (currentSlideOffset + clickPosition.xShift) + 'px)';
-        lifeSlider.setAttribute('style', transValue);
-      }
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      if (document.documentElement.clientWidth <= MOBILE_BREAKPOINT) {
-        var slideWidth = parseFloat(getComputedStyle(slides[currentNumberSlide]).width);
-
-        if (clickPosition.xShift < slideWidth / 2) {
-          var transValue = 'transform: translateX(' + currentSlideOffset + 'px)';
-          lifeSlider.setAttribute('style', transValue);
-        }
-
-        currentSlideOffset = currentSlideOffset + clickPosition.xShift;
-
-        if (currentSlideOffset < 0 && clickPosition.xShift >= slideWidth / 2) {
-
-          currentNumberSlide++; // вперед
-          addBtnActive(sliderBtn[currentNumberSlide]);
-
-          transformSlider(currentNumberSlide);
-          // currentSlideOffset = (currentNumberSlide + 1) * parseFloat(getComputedStyle(slides[currentNumberSlide]).width)
-
-        }
-
-        if (currentSlideOffset > 0) {
-          // currentNumberSlide--; // назад
-          // addBtnActive(sliderBtn[currentNumberSlide]);
-
-          // transformSlider(currentNumberSlide);
-        }
-      }
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
+    clickPosition.xStart = getMouseXPosition(evt);
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  function getElemWidth(elem) {
+    return parseFloat(getComputedStyle(elem).width);
+  }
+
+  function getMouseXPosition(evt) {
+    return evt.clientX || evt.touches[0].clientX;
+  }
+
+  function onSlideMove() {
+    if (getElemWidth(blockLife) <= MOBILE_BREAKPOINT) {
+      var transValue;
+      // if (currentNumberSlide === 0 && clickPosition.xShift > 0 || currentNumberSlide === (slides.length - 1) && clickPosition.xShift < 0) {
+      //   transValue = 'transform: translateX(' + (currentSlideOffset) + 'px)';
+      // } else {
+        transValue = 'transform: translateX(' + (currentSlideOffset + clickPosition.xShift) + 'px)';
+      // }
+      lifeSlider.setAttribute('style', transValue);
+    }
+  }
+
+  function onMouseMove(moveEvt) {
+    clickPosition.xEnd = getMouseXPosition(moveEvt);
+    clickPosition.xShift = clickPosition.xEnd - clickPosition.xStart;
+    onSlideMove();
+  }
+
+  function onMouseUp() {
+
+    if (getElemWidth(blockLife) <= MOBILE_BREAKPOINT) {
+      var slideWidth = getElemWidth(slides[currentNumberSlide]);
+
+      if (clickPosition.xShift < slideWidth / 2) {
+        // var transValue = 'transform: translateX(' + currentSlideOffset + 'px)';
+        // lifeSlider.setAttribute('style', transValue);
+      }
+
+      currentSlideOffset = currentSlideOffset + clickPosition.xShift;
+
+      if (currentSlideOffset < 0 && clickPosition.xShift >= slideWidth / 2) {
+
+        // currentNumberSlide++; // вперед
+        // addBtnActive(sliderBtn[currentNumberSlide]);
+
+        // transformSlider(currentNumberSlide);
+        // currentSlideOffset = (currentNumberSlide + 1) * parseFloat(getComputedStyle(slides[currentNumberSlide]).width)
+
+      }
+
+      if (currentSlideOffset > 0) {
+        // currentNumberSlide--; // назад
+        // addBtnActive(sliderBtn[currentNumberSlide]);
+
+        // transformSlider(currentNumberSlide);
+      }
+    }
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('touchmove', onMouseMove);
+    document.removeEventListener('touchend', onMouseUp);
+  }
+
+  // ==============================================================================
 
   addBtnActive(sliderBtn[currentNumberSlide]);
 
@@ -319,7 +344,7 @@
   }
 
   window.addEventListener('resize', function () {
-    if (document.documentElement.clientWidth >= MOBILE_BREAKPOINT) {
+    if (getElemWidth(blockLife) >= MOBILE_BREAKPOINT) {
       var numberSlide = 0;
       transformSlider(numberSlide);
 
@@ -358,7 +383,7 @@
 // accordion:
 (function myAccordion() {
   var accordion = document.querySelector('.accordion');
-  var ENTER_KEYCODE = 13;
+  // var ENTER_KEYCODE = 13;
 
   if (accordion) {
     accordion.addEventListener('click', function (evt) {
@@ -369,11 +394,13 @@
     // добавить открытие вкладок с клавиатуры
   }
 
-  function onTabChangState (evt) {
+  function onTabChangState(evt) {
     var elemDt = evt.target.closest('dt');
+
     if (!elemDt) {
       return;
     }
+
     if (!accordion.contains(elemDt)) {
       return;
     }
