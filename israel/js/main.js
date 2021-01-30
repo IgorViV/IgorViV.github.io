@@ -232,14 +232,19 @@
   var slides = lifeSlider.querySelectorAll('.life__slide');
   var sliderControls = blockLife.querySelector('.life__slider-controls');
   var sliderBtn = sliderControls.querySelectorAll('.life__btn');
-  var currentNumberSlide = 0;
   var clickPosition = {
     xStart: 0,
     xEnd: 0,
     xShift: 0
   };
-  var currentSlideOffset = 0;
+  var currentPosition = {
+    currentSlide: 0,
+    currentXOffset: 0
+  };
   var MOBILE_BREAKPOINT = 767;
+
+  // var sliderWidth = getElemWidth(blockLife);
+  // var slidesWidth = sliderWidth / slides.length;
 
 
   lifeSlider.addEventListener('touchstart', function (evt) {
@@ -267,11 +272,13 @@
   function onSlideMove() {
     if (getElemWidth(blockLife) <= MOBILE_BREAKPOINT) {
       var transValue;
-      // if (currentNumberSlide === 0 && clickPosition.xShift > 0 || currentNumberSlide === (slides.length - 1) && clickPosition.xShift < 0) {
-      //   transValue = 'transform: translateX(' + (currentSlideOffset) + 'px)';
+
+      // if (currentPosition.currentSlide === 0 && clickPosition.xShift < 0 || currentPosition.currentSlide === (slides.length - 1) && clickPosition.xShift > 0) {
+      //   transValue = 'transform: translateX(' + currentPosition.currentXOffset + 'px)';
       // } else {
-        transValue = 'transform: translateX(' + (currentSlideOffset + clickPosition.xShift) + 'px)';
+        transValue = 'transform: translateX(' + (currentPosition.currentXOffset + clickPosition.xShift) + 'px)';
       // }
+
       lifeSlider.setAttribute('style', transValue);
     }
   }
@@ -279,37 +286,26 @@
   function onMouseMove(moveEvt) {
     clickPosition.xEnd = getMouseXPosition(moveEvt);
     clickPosition.xShift = clickPosition.xEnd - clickPosition.xStart;
+    console.log(clickPosition.xShift);
     onSlideMove();
   }
 
   function onMouseUp() {
 
     if (getElemWidth(blockLife) <= MOBILE_BREAKPOINT) {
-      var slideWidth = getElemWidth(slides[currentNumberSlide]);
+      currentPosition.currentXOffset = currentPosition.currentXOffset + clickPosition.xShift;
+      console.log('Offset[move]: ' + currentPosition.currentXOffset);
 
-      if (clickPosition.xShift < slideWidth / 2) {
-        // var transValue = 'transform: translateX(' + currentSlideOffset + 'px)';
-        // lifeSlider.setAttribute('style', transValue);
+      if (clickPosition.xShift < 0 && currentPosition.currentSlide < slides.length - 1) {
+        currentPosition.currentSlide++;
+        transformSlider(currentPosition.currentSlide);
       }
 
-      currentSlideOffset = currentSlideOffset + clickPosition.xShift;
-
-      if (currentSlideOffset < 0 && clickPosition.xShift >= slideWidth / 2) {
-
-        // currentNumberSlide++; // вперед
-        // addBtnActive(sliderBtn[currentNumberSlide]);
-
-        // transformSlider(currentNumberSlide);
-        // currentSlideOffset = (currentNumberSlide + 1) * parseFloat(getComputedStyle(slides[currentNumberSlide]).width)
-
+      if (clickPosition.xShift > 0 && currentPosition.currentSlide !== 0) {
+        currentPosition.currentSlide--;
+        transformSlider(currentPosition.currentSlide);
       }
 
-      if (currentSlideOffset > 0) {
-        // currentNumberSlide--; // назад
-        // addBtnActive(sliderBtn[currentNumberSlide]);
-
-        // transformSlider(currentNumberSlide);
-      }
     }
 
     document.removeEventListener('mousemove', onMouseMove);
@@ -320,42 +316,34 @@
 
   // ==============================================================================
 
-  addBtnActive(sliderBtn[currentNumberSlide]);
+  addBtnActive(sliderBtn[currentPosition.currentSlide]);
 
-  transformSlider(currentNumberSlide);
+  transformSlider(currentPosition.currentSlide);
 
   if (sliderControls) {
-    sliderControls.onclick = function (evt) {
-      evt.preventDefault();
+    sliderControls.addEventListener('click', function (evt) {
       var btn = evt.target.closest('button');
+
       if (!btn) {
         return;
       }
+
       if (!sliderControls.contains(btn)) {
         return;
       }
       addBtnActive(btn);
-      removeBtnActive(sliderBtn[currentNumberSlide]);
 
-      currentNumberSlide = getCurrentIndexBtn(btn);
+      removeBtnActive(sliderBtn[currentPosition.currentSlide]);
 
-      transformSlider(currentNumberSlide);
-    };
+      currentPosition.currentSlide = getCurrentIndexBtn(btn);
+
+      transformSlider(currentPosition.currentSlide);
+    });
   }
 
   window.addEventListener('resize', function () {
-    if (getElemWidth(blockLife) >= MOBILE_BREAKPOINT) {
-      var numberSlide = 0;
-      transformSlider(numberSlide);
-
-      addBtnActive(sliderBtn[numberSlide]);
-
-      if (numberSlide !== currentNumberSlide) {
-        removeBtnActive(sliderBtn[currentNumberSlide]);
-        currentNumberSlide = 0;
-      }
-    }
-
+    transformSlider(currentPosition.currentSlide);
+    console.log('Offset[resize]: ' + currentPosition.currentXOffset);
   });
 
   function addBtnActive(targetBtn) {
@@ -375,8 +363,10 @@
   }
 
   function transformSlider(currentIndex) {
-    var transValue = 'transform: translateX(' + currentIndex * (-20) + '%)';
+    var transValue = 'transform: translateX(-' + currentIndex * getElemWidth(slides[currentPosition.currentSlide]) + 'px)';
     lifeSlider.setAttribute('style', transValue);
+    currentPosition.currentXOffset = (-1) * currentIndex * getElemWidth(slides[currentIndex]);
+    console.log('Offset: ' + currentPosition.currentXOffset);
   }
 }());
 
