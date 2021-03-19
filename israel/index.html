@@ -67,8 +67,8 @@
         <div class="programms__wrapper">
           <h2>Программы</h2>
           <div class="programms__content">
-            <input class="visually-hidden" type="radio" name="option" id="general">
-            <input class="visually-hidden" type="radio" name="option" id="academic" checked="">
+            <input class="visually-hidden" type="radio" name="option" id="general" checked="">
+            <input class="visually-hidden" type="radio" name="option" id="academic">
             <input class="visually-hidden" type="radio" name="option" id="internships">
             <input class="visually-hidden" type="radio" name="option" id="volunteerism">
             <input class="visually-hidden" type="radio" name="option" id="religious">
@@ -316,7 +316,7 @@
                 </dd>
               </div>
               <div class="accordion__item">
-                <dt class="accordion__item-header accordion__item-header--active" tabindex="0">
+                <dt class="accordion__item-header" tabindex="0">
                   <span>3</span> Как определяется стоимость программы?
                 </dt>
                 <dd class="accordion__item-content">
@@ -715,7 +715,7 @@
                 <label class="visually-hidden" for="contacts-name">
                   Имя
                 </label>
-                <input id="contacts-name" type="text" name="name" placeholder="имя" required="" autocomplete="on">
+                <input id="contacts-name" type="text" name="name" placeholder="имя" minlength="3" required="" autocomplete="on">
               </div>
               <div class="form__group form__group--contacts">
                 <label class="visually-hidden" for="contacts-phone">
@@ -780,7 +780,7 @@
               <label class="visually-hidden" for="modal-name">
                 Имя
               </label>
-              <input id="modal-name" type="text" name="name" placeholder="имя" required="" autofocus="autofocus" autocomplete="on">
+              <input id="modal-name" type="text" name="name" placeholder="имя" minlength="3" required="" autofocus="autofocus" autocomplete="on">
             </div>
             <div class="form-group form-group--modal">
               <label class="visually-hidden" for="modal-phone">
